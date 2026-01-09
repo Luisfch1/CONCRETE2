@@ -2,65 +2,165 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mezclas de Concreto v0.01</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Mezclas de Concreto v0.02</title>
+
   <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./favicon.png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+
   <meta name="theme-color" content="#0b1220" />
+
   <style>
     :root{
-      --bg:#0b1220; --card:#101a30; --muted:#9fb0d0; --text:#e8eefc; --line:#203257;
-      --accent:#96282d; --good:#3ddc97; --warn:#ffcc66;
+      /* Base (oscuro sobrio) – estilo Logi */
+      --bg:#0b1220;
+      --card:#0a1020;
+      --card2:#050a14;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --border:#223047;
+
+      --accent:#3b82f6;
+      --accent2:#60a5fa;
+      --accent-rgb:59,130,246;
+
+      --danger:#ef4444;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
     }
+    [data-theme="light"]{
+      --bg:#f5f7fb;
+      --card:#ffffff;
+      --card2:#eef2ff;
+      --text:#0f172a;
+      --muted:#475569;
+      --border:#e2e8f0;
+
+      --accent:#2563eb;
+      --accent2:#60a5fa;
+      --accent-rgb:37,99,235;
+
+      --danger:#ef4444;
+      --shadow:0 10px 24px rgba(15,23,42,.10);
+    }
+
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;
-         background:linear-gradient(180deg,var(--bg),#070b14); color:var(--text);}
-    a{color:#b8c9ff}
-    .wrap{max-width:980px;margin:0 auto;padding:18px}
-    .top{display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:38px;height:38px;border-radius:12px;background:var(--card);display:grid;place-items:center;border:1px solid var(--line)}
-    .logo span{font-weight:800;letter-spacing:.5px}
-    .pill{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:999px;background:rgba(16,26,48,.55)}
-    .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-top:14px}
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Arial;
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(var(--accent-rgb),.25), transparent 60%),
+                  radial-gradient(900px 500px at 110% 10%, rgba(239,68,68,.18), transparent 55%),
+                  linear-gradient(180deg,var(--bg),var(--bg));
+      color:var(--text);
+    }
+    a{color:var(--accent2); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .wrap{max-width:1020px;margin:0 auto;padding:18px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:12px}
+    .logo{width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg, rgba(var(--accent-rgb),.18), rgba(239,68,68,.10));
+           border:1px solid var(--border); box-shadow:var(--shadow); display:grid;place-items:center}
+    .logo span{font-weight:900;letter-spacing:.5px}
+    .title h1{font-size:18px;margin:0;line-height:1.1}
+    .title .sub{margin-top:3px;font-size:12px;color:var(--muted)}
+    .pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);
+           border:1px solid var(--border);padding:6px 10px;border-radius:999px;background:rgba(0,0,0,.08)}
+
+    .actions{display:flex;gap:10px;align-items:center}
+    .iconbtn{cursor:pointer;border:1px solid var(--border);background:rgba(0,0,0,.08);color:var(--text);
+              border-radius:12px;padding:10px 11px;display:inline-flex;align-items:center;gap:8px}
+    .iconbtn:active{transform:translateY(1px)}
+
+    .grid{display:grid;grid-template-columns:1.2fr .9fr;gap:14px;margin-top:14px}
     @media (max-width:900px){.grid{grid-template-columns:1fr}}
-    .card{background:rgba(16,26,48,.65);border:1px solid var(--line);border-radius:18px;padding:14px}
-    h1{font-size:18px;margin:0}
-    h2{font-size:14px;margin:0 0 10px 0;color:#cfe0ff}
-    p,li{color:var(--muted);line-height:1.35}
+
+    .card{background:rgba(0,0,0,.10);border:1px solid var(--border);border-radius:18px;padding:14px;box-shadow:var(--shadow)}
+    [data-theme="light"] .card{background:rgba(255,255,255,.85)}
+
+    h2{font-size:14px;margin:0 0 10px 0;color:var(--text)}
+    .muted{color:var(--muted)}
+    label{font-size:12px;color:var(--muted);display:block;margin:10px 0 6px}
+    input, select{
+      width:100%; padding:10px 10px; border-radius:12px;
+      border:1px solid var(--border); background:rgba(0,0,0,.18);
+      color:var(--text); outline:none;
+    }
+    [data-theme="light"] input, [data-theme="light"] select{background:#ffffff}
+    input[type="number"]{appearance:textfield}
     .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     @media (max-width:520px){.row{grid-template-columns:1fr}}
-    label{font-size:12px;color:#cfe0ff;display:block;margin:10px 0 6px}
-    select,input{width:100%;padding:10px 10px;border-radius:12px;border:1px solid var(--line);background:#0c1426;color:var(--text);outline:none}
-    input[type="number"]{appearance:textfield}
-    .btn{cursor:pointer;border:none;border-radius:12px;padding:11px 12px;background:var(--accent);color:white;font-weight:700;width:100%}
+
+    .btn{cursor:pointer;border:none;border-radius:12px;padding:11px 12px;background:linear-gradient(180deg,var(--accent),#1d4ed8);
+          color:white;font-weight:800;width:100%}
     .btn:active{transform:translateY(1px)}
-    .small{font-size:12px}
+
+    /* Result tabs (estilo Logi) */
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+    .tab{cursor:pointer;user-select:none;border:1px solid var(--border);background:rgba(0,0,0,.10);color:var(--muted);
+          padding:8px 10px;border-radius:999px;font-size:12px;font-weight:800}
+    .tab.active{background:rgba(var(--accent-rgb),.18); color:var(--text); border-color:rgba(var(--accent-rgb),.45)}
+
     .kpi{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
     @media (max-width:720px){.kpi{grid-template-columns:1fr}}
-    .k{border:1px solid var(--line);background:rgba(12,20,38,.7);border-radius:14px;padding:10px}
+    .k{border:1px solid var(--border);background:rgba(0,0,0,.14);border-radius:14px;padding:10px}
+    [data-theme="light"] .k{background:#ffffff}
     .k .t{font-size:12px;color:var(--muted)}
-    .k .v{font-size:18px;font-weight:800;margin-top:4px}
-    .badge{display:inline-flex;gap:8px;align-items:center;font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(12,20,38,.6);color:var(--muted)}
-    .dot{width:8px;height:8px;border-radius:50%}
-    .dot.warn{background:var(--warn)}
+    .k .v{font-size:18px;font-weight:900;margin-top:4px}
+    .k .s{font-size:12px;color:var(--muted);margin-top:4px}
+
     details{margin-top:10px}
-    summary{cursor:pointer;color:#cfe0ff}
-    .foot{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-top:12px}
-    .muted{color:var(--muted)}
+    summary{cursor:pointer;color:var(--text);font-weight:800}
+    ul{margin:10px 0 0 18px}
+    li{color:var(--muted);line-height:1.35}
+
+    /* Diagram */
+    .dimsWrap{display:grid;grid-template-columns:1fr 220px;gap:12px;align-items:start}
+    @media (max-width:720px){.dimsWrap{grid-template-columns:1fr}}
+    .diagramCard{border:1px dashed rgba(var(--accent-rgb),.35);border-radius:16px;padding:10px;background:rgba(0,0,0,.10)}
+    [data-theme="light"] .diagramCard{background:#ffffff}
+    .diagramCard.invalid{border-color:rgba(239,68,68,.55)}
+    .diagramTitle{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+    .diagramTitle span{font-size:12px;color:var(--muted);font-weight:800}
+    svg{width:100%;height:auto;display:block}
+    .svgStroke{stroke:var(--text);stroke-width:2;fill:none;opacity:.92}
+    .svgDim{stroke:var(--muted);stroke-width:1.6;fill:none;opacity:.85}
+    .svgLabel{fill:var(--muted);font-size:11px;font-weight:800}
+
+    /* Modal */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;padding:18px;z-index:50}
+    .overlay.open{display:flex}
+    .modal{width:min(520px,100%);background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:14px}
+    [data-theme="light"] .modal{background:#ffffff}
+    .modalHead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .modalHead h3{margin:0;font-size:14px}
+    .close{cursor:pointer;border:1px solid var(--border);background:rgba(0,0,0,.08);color:var(--text);
+            border-radius:12px;padding:8px 10px;font-weight:900}
+    .toggleRow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}
+    .switch{position:relative;width:54px;height:32px;border-radius:999px;border:1px solid var(--border);background:rgba(0,0,0,.14);cursor:pointer}
+    [data-theme="light"] .switch{background:#f1f5f9}
+    .knob{position:absolute;top:4px;left:4px;width:24px;height:24px;border-radius:999px;background:var(--accent);transition:transform .2s ease}
+    .switch.on .knob{transform:translateX(22px)}
+    .smallNote{font-size:12px;color:var(--muted);margin-top:10px}
     .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <div class="top">
+    <div class="topbar">
       <div class="brand">
         <div class="logo" aria-hidden="true"><span>MC</span></div>
-        <div>
-          <h1>Mezclas de Concreto <span class="pill">v0.01</span></h1>
-          <div class="small muted">Por <b>1 bulto</b> de cemento (50 kg). Arena/Grava en <b>baldes</b> medidos.</div>
+        <div class="title">
+          <h1>Mezclas de Concreto <span class="pill">v0.02</span></h1>
+          <div class="sub">Dosifica por recipiente real (balde/caneca). Cemento por <b>bulto</b>.</div>
         </div>
       </div>
-      <span class="badge"><span class="dot warn"></span>Guía referencial (no reemplaza diseño de mezcla)</span>
+
+      <div class="actions">
+        <span class="pill">Fuente: <a href="https://colombia.argos.co/autoconstructores/aprende-a-dosificar-el-concreto-para-tus-proyectos-de-construccion-o-remodelacion/" target="_blank" rel="noopener">Cementos Argos</a></span>
+        <button class="iconbtn" id="settingsBtn" title="Configuración">⚙️</button>
+      </div>
     </div>
 
     <div class="grid">
@@ -81,218 +181,527 @@
           </div>
         </div>
 
-        <div id="dimsFrustum">
-          <div class="row">
-            <div>
-              <label for="d1">Diámetro mayor (cm)</label>
-              <input id="d1" type="number" min="1" step="0.1" value="32">
-            </div>
-            <div>
-              <label for="d2">Diámetro menor (cm)</label>
-              <input id="d2" type="number" min="1" step="0.1" value="26">
-            </div>
-          </div>
-          <label for="h">Altura útil (cm)</label>
-          <input id="h" type="number" min="1" step="0.1" value="28">
-        </div>
-
-        <div id="dimsCylinder" style="display:none">
-          <div class="row">
-            <div>
-              <label for="dc">Diámetro (cm)</label>
-              <input id="dc" type="number" min="1" step="0.1" value="30">
-            </div>
-            <div>
-              <label for="hc">Altura útil (cm)</label>
-              <input id="hc" type="number" min="1" step="0.1" value="33">
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
+        <div class="dimsWrap" style="margin-top:2px">
           <div>
-            <label for="bagKg">Peso bulto cemento (kg)</label>
-            <input id="bagKg" type="number" min="1" step="0.1" value="50">
+            <div id="dimsFrustum">
+              <div class="row">
+                <div>
+                  <label for="d1">Diámetro mayor (cm)</label>
+                  <input id="d1" type="number" min="1" step="0.1" value="32">
+                </div>
+                <div>
+                  <label for="d2">Diámetro menor (cm)</label>
+                  <input id="d2" type="number" min="1" step="0.1" value="26">
+                </div>
+              </div>
+              <label for="h">Altura útil (cm)</label>
+              <input id="h" type="number" min="1" step="0.1" value="28">
+            </div>
+
+            <div id="dimsCylinder" style="display:none">
+              <div class="row">
+                <div>
+                  <label for="dc">Diámetro (cm)</label>
+                  <input id="dc" type="number" min="1" step="0.1" value="30">
+                </div>
+                <div>
+                  <label for="hc">Altura útil (cm)</label>
+                  <input id="hc" type="number" min="1" step="0.1" value="33">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div>
+                <label for="bagKg">Bulto de cemento (kg)</label>
+                <input id="bagKg" type="number" min="1" step="0.1" value="50">
+              </div>
+              <div>
+                <label for="rounding">Redondeo (baldes)</label>
+                <select id="rounding">
+                  <option value="0.25" selected>0.25 (¼ balde)</option>
+                  <option value="0.5">0.50 (½ balde)</option>
+                  <option value="1">1.00 (entero)</option>
+                </select>
+              </div>
+            </div>
           </div>
-          <div>
-            <label for="rounding">Redondeo (baldes)</label>
-            <select id="rounding">
-              <option value="0.25" selected>0.25 (¼ balde)</option>
-              <option value="0.5">0.50 (½ balde)</option>
-              <option value="1">1.00 (entero)</option>
-            </select>
+
+          <div class="diagramCard" id="diagramCard">
+            <div class="diagramTitle">
+              <span>Guía visual</span>
+              <span class="mono" id="diagHint">D mayor / D menor / h</span>
+            </div>
+
+            <svg id="bucketSvg" viewBox="0 0 220 160" role="img" aria-label="Diagrama del recipiente">
+              <defs>
+                <marker id="arrow" markerWidth="10" markerHeight="10" refX="6" refY="3" orient="auto">
+                  <path d="M0,0 L6,3 L0,6" fill="none" stroke="currentColor" stroke-width="1.6" />
+                </marker>
+              </defs>
+
+              <!-- Shape -->
+              <path id="shapePath" class="svgStroke" d="" />
+
+              <!-- Dimensions -->
+              <path id="dimTop" class="svgDim" d="" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+              <path id="dimBottom" class="svgDim" d="" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+              <path id="dimH" class="svgDim" d="" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+              <text id="labTop" class="svgLabel" x="110" y="24" text-anchor="middle">D mayor</text>
+              <text id="labBottom" class="svgLabel" x="110" y="148" text-anchor="middle">D menor</text>
+              <text id="labH" class="svgLabel" x="196" y="86" text-anchor="middle">h</text>
+            </svg>
           </div>
         </div>
 
-        <button class="btn" id="calcBtn">Calcular dosificación</button>
+        <button class="btn" id="calcBtn" style="margin-top:12px">Calcular dosificación</button>
 
         <details>
           <summary>Notas importantes (léelas una vez)</summary>
           <ul>
             <li>Esta app usa una <b>tabla de dosificaciones</b> de Cementos Argos (referencial), <b>no</b> un diseño de mezcla. La calidad de agregados y el control del agua cambian el resultado.</li>
             <li>Para obras estructurales o críticas: se recomienda <b>diseño de mezcla y ensayos</b> con tus materiales.</li>
-            <li>El exceso de agua baja la resistencia. Mide el agua en litros o en recipiente graduado.</li>
+            <li>El exceso de agua baja la resistencia. Mide el agua en litros o con recipiente graduado.</li>
           </ul>
-          <div class="small muted">Fuente: <a href="https://colombia.argos.co/autoconstructores/aprende-a-dosificar-el-concreto-para-tus-proyectos-de-construccion-o-remodelacion/" target="_blank" rel="noopener">Cementos Argos</a> (ver tabla).</div>
+          <div class="smallNote">Fuente: <a href="https://colombia.argos.co/autoconstructores/aprende-a-dosificar-el-concreto-para-tus-proyectos-de-construccion-o-remodelacion/" target="_blank" rel="noopener">Cementos Argos</a></div>
         </details>
       </div>
 
       <div class="card">
-        <h2>2) Resultado (por 1 bulto)</h2>
+        <h2>2) Resultado</h2>
+
+        <div class="tabs" role="tablist" aria-label="Modo de dosificación">
+          <div class="tab active" id="tabBag" role="tab" aria-selected="true" tabindex="0">Por 1 bulto (50 kg)</div>
+          <div class="tab" id="tabM3" role="tab" aria-selected="false" tabindex="0">Por 1 m³ de concreto</div>
+          <div class="tab" id="tabVol" role="tab" aria-selected="false" tabindex="0">Por volumen</div>
+        </div>
+
+        <div id="volBlock" style="display:none">
+          <label for="volM3">Volumen objetivo (m³)</label>
+          <input id="volM3" type="number" min="0" step="0.001" value="0.090">
+
+          <label for="volExpr">o ingresa operación (m): x * y * z</label>
+          <input id="volExpr" type="text" placeholder="Ej: 0.6 * 0.6 * 0.25" value="0.6 * 0.6 * 0.25">
+          <button class="iconbtn" id="volCalcBtn" style="width:100%;justify-content:center;margin-top:10px">Calcular volumen</button>
+
+          <div class="smallNote">Tip: puedes usar coma o punto decimal (0,6 = 0.6).</div>
+          <div style="height:12px"></div>
+        </div>
 
         <div class="kpi">
           <div class="k">
             <div class="t">Arena</div>
             <div class="v" id="outSand">—</div>
-            <div class="t small muted" id="outSand2"></div>
+            <div class="s" id="outSand2"></div>
           </div>
           <div class="k">
             <div class="t">Grava</div>
             <div class="v" id="outGravel">—</div>
-            <div class="t small muted" id="outGravel2"></div>
+            <div class="s" id="outGravel2"></div>
           </div>
           <div class="k">
             <div class="t">Agua</div>
             <div class="v" id="outWater">—</div>
-            <div class="t small muted" id="outWater2"></div>
+            <div class="s" id="outWater2"></div>
           </div>
         </div>
 
-        <div style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px">
-          <div class="small muted" id="meta">—</div>
-          <div class="foot">
-            <div class="small muted">Recipiente: <span class="mono" id="bucketVol">—</span></div>
-            <div class="small muted">Fuente: <a href="https://colombia.argos.co/autoconstructores/aprende-a-dosificar-el-concreto-para-tus-proyectos-de-construccion-o-remodelacion/" target="_blank" rel="noopener">Argos</a></div>
-          </div>
+        <div style="margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+          <div class="smallNote" id="meta">—</div>
+          <div class="smallNote muted">Recipiente: <span class="mono" id="bucketVol">—</span></div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="card" style="margin-top:14px">
-      <h2>3) Para probar en celular (tipo Logi)</h2>
-      <ol>
-        <li>Sube esta carpeta a un hosting (Cloudflare Pages, Netlify, GitHub Pages, etc.).</li>
-        <li>Abre el enlace en Chrome/Android y usa <b>“Agregar a pantalla de inicio”</b>.</li>
-        <li>En iPhone: abre en Safari → compartir → <b>“Add to Home Screen”</b>.</li>
-      </ol>
-      <div class="small muted">En v0.02 (si quieres) metemos modo offline/caché con service worker.</div>
+  <!-- Settings modal -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Configuración">
+      <div class="modalHead">
+        <h3>Configuración</h3>
+        <button class="close" id="closeBtn">✕</button>
+      </div>
+
+      <div class="toggleRow">
+        <div>
+          <div style="font-weight:900">Modo</div>
+          <div class="smallNote" id="themeLabel">Oscuro</div>
+        </div>
+        <div class="switch" id="themeSwitch" role="switch" aria-checked="false"><div class="knob"></div></div>
+      </div>
+
+      <div class="smallNote">Esta app busca ayudarte a dosificar mejor en obra, pero no sustituye un diseño de mezcla de laboratorio.</div>
     </div>
   </div>
 
 <script>
-const DATA_URL = "./mezclas_argos_v0.01.json";
+const DATA_URL = "./mezclas_argos_v0.02.json";
+const THEME_KEY = "mc_theme";
+const STATE_KEY = "mc_state_v002";
+const TAB_KEY = "mc_result_tab";
 
-function ceilToStep(x, step){
+/* ---------- PWA: Service Worker ---------- */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
+
+/* ---------- Helpers ---------- */
+const $ = (id) => document.getElementById(id);
+
+function ceilToStep(x, step) {
   if (!isFinite(x)) return NaN;
   return Math.ceil(x / step) * step;
 }
-function fmt(x, dec=2){
+function fmt(x, dec=2) {
   if (!isFinite(x)) return "—";
-  return x.toFixed(dec);
+  return Number(x).toFixed(dec);
 }
-function loadState(){
-  try{ return JSON.parse(localStorage.getItem("mc_state")||"{}"); }catch(e){ return {}; }
+function parseNumberAny(v) {
+  // acepta coma decimal
+  if (typeof v !== "string") v = String(v ?? "");
+  v = v.trim().replace(/,/g, ".");
+  const n = Number(v);
+  return isFinite(n) ? n : NaN;
 }
-function saveState(state){
-  try{ localStorage.setItem("mc_state", JSON.stringify(state)); }catch(e){}
-}
-
-function frustumVolumeM3(d1_cm, d2_cm, h_cm){
+function frustumVolumeM3(d1_cm, d2_cm, h_cm) {
   const d1 = d1_cm/100, d2 = d2_cm/100, h = h_cm/100;
   return (Math.PI * h / 12) * (d1*d1 + d1*d2 + d2*d2);
 }
-function cylinderVolumeM3(d_cm, h_cm){
+function cylinderVolumeM3(d_cm, h_cm) {
   const d = d_cm/100, h = h_cm/100;
   return Math.PI * (d*d/4) * h;
 }
 
+function loadJSON(key, fallback={}) {
+  try { return JSON.parse(localStorage.getItem(key) || ""); } catch { return fallback; }
+}
+function saveJSON(key, obj) {
+  try { localStorage.setItem(key, JSON.stringify(obj)); } catch {}
+}
+
+/* ---------- Theme (estilo Logi) ---------- */
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", theme === "light" ? "#f5f7fb" : "#0b1220");
+}
+function syncThemeUI() {
+  const theme = document.documentElement.dataset.theme || "dark";
+  $("themeLabel").textContent = (theme === "light") ? "Claro" : "Oscuro";
+  const sw = $("themeSwitch");
+  if (sw) {
+    sw.classList.toggle("on", theme === "light");
+    sw.setAttribute("aria-checked", theme === "light" ? "true" : "false");
+  }
+}
+function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY) || "dark";
+  applyTheme(saved);
+  syncThemeUI();
+}
+
+/* ---------- Tabs ---------- */
+function setActiveTab(which) {
+  const tabs = [
+    {id:"tabBag", key:"bag"},
+    {id:"tabM3", key:"m3"},
+    {id:"tabVol", key:"vol"}
+  ];
+  for (const t of tabs) {
+    const el = $(t.id);
+    const active = (t.key === which);
+    el.classList.toggle("active", active);
+    el.setAttribute("aria-selected", active ? "true" : "false");
+  }
+  $("volBlock").style.display = (which === "vol") ? "" : "none";
+  localStorage.setItem(TAB_KEY, which);
+  calc();
+}
+
+/* ---------- Diagram (SVG lineal) ---------- */
+function updateDiagram() {
+  const shape = $("shape").value;
+  const card = $("diagramCard");
+
+  const path = $("shapePath");
+  const dimTop = $("dimTop");
+  const dimBottom = $("dimBottom");
+  const dimH = $("dimH");
+  const labTop = $("labTop");
+  const labBottom = $("labBottom");
+  const labH = $("labH");
+  const hint = $("diagHint");
+
+  // viewport layout constants
+  const cx = 110;
+  const topY = 46;
+  const botY = 126;
+
+  card.classList.remove("invalid");
+
+  if (shape === "frustum") {
+    const d1 = parseNumberAny($("d1").value);
+    const d2 = parseNumberAny($("d2").value);
+    const h  = parseNumberAny($("h").value);
+
+    const invalid = isFinite(d1) && isFinite(d2) && d2 > d1;
+    if (invalid) card.classList.add("invalid");
+
+    // scale widths between 60..130 px (solo para visual)
+    const wTop = isFinite(d1) ? (60 + Math.min(70, Math.max(0, d1)) ) : 110;
+    const wBot = isFinite(d2) ? (60 + Math.min(70, Math.max(0, d2)) ) : 90;
+
+    const x1 = cx - wTop/2, x2 = cx + wTop/2;
+    const x3 = cx - wBot/2, x4 = cx + wBot/2;
+
+    path.setAttribute("d", `M ${x1} ${topY} L ${x2} ${topY} L ${x4} ${botY} L ${x3} ${botY} Z`);
+
+    // top dim line
+    const dtY = 28;
+    dimTop.setAttribute("d", `M ${x1} ${dtY} L ${x2} ${dtY}`);
+    // bottom dim
+    const dbY = 146;
+    dimBottom.setAttribute("d", `M ${x3} ${dbY} L ${x4} ${dbY}`);
+    // height dim right side
+    const dhX = 196;
+    dimH.setAttribute("d", `M ${dhX} ${topY} L ${dhX} ${botY}`);
+
+    labTop.textContent = `D mayor${isFinite(d1) ? " = " + fmt(d1,1) + " cm" : ""}`;
+    labBottom.textContent = `D menor${isFinite(d2) ? " = " + fmt(d2,1) + " cm" : ""}`;
+    labH.textContent = `h${isFinite(h) ? " = " + fmt(h,1) + " cm" : ""}`;
+    hint.textContent = "D mayor / D menor / h";
+
+    labBottom.style.display = "";
+  } else {
+    const d = parseNumberAny($("dc").value);
+    const h = parseNumberAny($("hc").value);
+
+    const w = isFinite(d) ? (70 + Math.min(70, Math.max(0, d)) ) : 120;
+    const x1 = cx - w/2, x2 = cx + w/2;
+
+    // cylinder as rounded rectangle
+    const r = 12;
+    path.setAttribute("d", `M ${x1} ${topY} 
+      Q ${x1} ${topY-r} ${x1+r} ${topY-r}
+      L ${x2-r} ${topY-r}
+      Q ${x2} ${topY-r} ${x2} ${topY}
+      L ${x2} ${botY}
+      Q ${x2} ${botY+r} ${x2-r} ${botY+r}
+      L ${x1+r} ${botY+r}
+      Q ${x1} ${botY+r} ${x1} ${botY}
+      Z`);
+
+    const dtY = 28;
+    dimTop.setAttribute("d", `M ${x1} ${dtY} L ${x2} ${dtY}`);
+    dimBottom.setAttribute("d", `M ${x1} 146 L ${x2} 146`);
+    const dhX = 196;
+    dimH.setAttribute("d", `M ${dhX} ${topY} L ${dhX} ${botY}`);
+
+    labTop.textContent = `D${isFinite(d) ? " = " + fmt(d,1) + " cm" : ""}`;
+    labH.textContent = `h${isFinite(h) ? " = " + fmt(h,1) + " cm" : ""}`;
+    hint.textContent = "D / h";
+
+    labBottom.style.display = "none";
+  }
+}
+
+/* ---------- Volume expression ---------- */
+function evalVolumeExpr(expr) {
+  // allow "0,6 * 0,6 * 0,25"
+  if (!expr) return NaN;
+  let s = String(expr).trim().replace(/,/g, ".");
+  // allow only numbers, spaces, operators, parentheses, dots
+  if (!/^[0-9\s\*\+\-\/\(\)\.]+$/.test(s)) return NaN;
+  try {
+    // eslint-disable-next-line no-new-func
+    const val = Function("return (" + s + ");")();
+    const n = Number(val);
+    return (isFinite(n) && n >= 0) ? n : NaN;
+  } catch {
+    return NaN;
+  }
+}
+
+/* ---------- Main ---------- */
 let MIXES = [];
 
-async function init(){
+async function init() {
+  initTheme();
+
   const res = await fetch(DATA_URL, {cache:"no-store"});
   const j = await res.json();
-  MIXES = j.mixes;
+  MIXES = j.mixes || [];
 
-  const psiSel = document.getElementById("psi");
+  const psiSel = $("psi");
   psiSel.innerHTML = "";
-  for (const m of MIXES){
+  for (const m of MIXES) {
     const opt = document.createElement("option");
-    const tag = (m.is_estimated ? " (estimado)" : (m.psi===3500 ? " (≈ Argos 3555)" : ""));
+    const tag = m.is_estimated ? " (estimado)" : (m.psi === 3500 ? " (≈ Argos 3555)" : "");
     opt.value = m.psi;
     opt.textContent = `${m.psi} psi (${m.mpa} MPa)${tag}`;
     psiSel.appendChild(opt);
   }
 
-  const st = loadState();
+  const st = loadJSON(STATE_KEY, {});
   if (st.psi) psiSel.value = st.psi;
-  if (st.shape) document.getElementById("shape").value = st.shape;
+  if (st.shape) $("shape").value = st.shape;
+  ["d1","d2","h","dc","hc","bagKg","rounding","volM3","volExpr"].forEach(id => {
+    if (st[id] !== undefined && $(id)) $(id).value = st[id];
+  });
 
-  ["d1","d2","h","dc","hc","bagKg","rounding"].forEach(id=>{
-    if (st[id] !== undefined) document.getElementById(id).value = st[id];
+  const tab = localStorage.getItem(TAB_KEY) || "bag";
+  setActiveTab(tab);
+
+  // Settings modal
+  $("settingsBtn").addEventListener("click", () => {
+    $("overlay").classList.add("open");
+    $("overlay").setAttribute("aria-hidden","false");
+  });
+  $("closeBtn").addEventListener("click", () => {
+    $("overlay").classList.remove("open");
+    $("overlay").setAttribute("aria-hidden","true");
+  });
+  $("overlay").addEventListener("click", (e) => {
+    if (e.target === $("overlay")) {
+      $("overlay").classList.remove("open");
+      $("overlay").setAttribute("aria-hidden","true");
+    }
+  });
+
+  $("themeSwitch").addEventListener("click", () => {
+    const cur = document.documentElement.dataset.theme || "dark";
+    const next = (cur === "light") ? "dark" : "light";
+    localStorage.setItem(THEME_KEY, next);
+    applyTheme(next);
+    syncThemeUI();
+  });
+
+  // Tabs
+  $("tabBag").addEventListener("click", () => setActiveTab("bag"));
+  $("tabM3").addEventListener("click", () => setActiveTab("m3"));
+  $("tabVol").addEventListener("click", () => setActiveTab("vol"));
+
+  // Inputs
+  $("shape").addEventListener("change", () => {
+    syncDimsUI();
+    persist();
+    updateDiagram();
+    calc();
+  });
+  $("psi").addEventListener("change", () => { persist(); calc(); });
+
+  ["d1","d2","h","dc","hc","bagKg","rounding","volM3","volExpr"].forEach(id => {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener("input", () => {
+      persist();
+      updateDiagram();
+      calc();
+    });
+  });
+
+  $("calcBtn").addEventListener("click", calc);
+
+  $("volCalcBtn").addEventListener("click", () => {
+    const v = evalVolumeExpr($("volExpr").value);
+    if (isFinite(v)) {
+      $("volM3").value = fmt(v, 3);
+      persist();
+      calc();
+    } else {
+      $("volM3").value = "";
+      calc();
+    }
   });
 
   syncDimsUI();
-  document.getElementById("shape").addEventListener("change", ()=>{ syncDimsUI(); persist(); });
-  document.getElementById("psi").addEventListener("change", persist);
-  ["d1","d2","h","dc","hc","bagKg","rounding"].forEach(id=>{
-    document.getElementById(id).addEventListener("input", persist);
-  });
-
-  document.getElementById("calcBtn").addEventListener("click", calc);
-
+  updateDiagram();
   calc();
 }
 
-function syncDimsUI(){
-  const shape = document.getElementById("shape").value;
-  document.getElementById("dimsFrustum").style.display = (shape==="frustum") ? "" : "none";
-  document.getElementById("dimsCylinder").style.display = (shape==="cylinder") ? "" : "none";
+function syncDimsUI() {
+  const shape = $("shape").value;
+  $("dimsFrustum").style.display = (shape==="frustum") ? "" : "none";
+  $("dimsCylinder").style.display = (shape==="cylinder") ? "" : "none";
+  $("diagHint").textContent = (shape==="frustum") ? "D mayor / D menor / h" : "D / h";
 }
 
-function persist(){
+function persist() {
   const state = {
-    psi: document.getElementById("psi").value,
-    shape: document.getElementById("shape").value,
-    d1: document.getElementById("d1").value,
-    d2: document.getElementById("d2").value,
-    h: document.getElementById("h").value,
-    dc: document.getElementById("dc").value,
-    hc: document.getElementById("hc").value,
-    bagKg: document.getElementById("bagKg").value,
-    rounding: document.getElementById("rounding").value
+    psi: $("psi").value,
+    shape: $("shape").value,
+    d1: $("d1").value,
+    d2: $("d2").value,
+    h: $("h").value,
+    dc: $("dc").value,
+    hc: $("hc").value,
+    bagKg: $("bagKg").value,
+    rounding: $("rounding").value,
+    volM3: $("volM3").value,
+    volExpr: $("volExpr").value
   };
-  saveState(state);
+  saveJSON(STATE_KEY, state);
 }
 
-function calc(){
-  const psi = Number(document.getElementById("psi").value);
+function getBucketVolume() {
+  const shape = $("shape").value;
+  let Vb_m3 = NaN;
+  if (shape === "frustum") {
+    const d1 = parseNumberAny($("d1").value);
+    const d2 = parseNumberAny($("d2").value);
+    const h  = parseNumberAny($("h").value);
+    Vb_m3 = frustumVolumeM3(d1,d2,h);
+  } else {
+    const d  = parseNumberAny($("dc").value);
+    const h  = parseNumberAny($("hc").value);
+    Vb_m3 = cylinderVolumeM3(d,h);
+  }
+  return Vb_m3;
+}
+
+function calc() {
+  const psi = Number($("psi").value);
   const mix = MIXES.find(m => Number(m.psi) === psi);
   if (!mix) return;
 
-  const shape = document.getElementById("shape").value;
-
-  let Vb_m3 = NaN;
-  if (shape === "frustum"){
-    const d1 = Number(document.getElementById("d1").value);
-    const d2 = Number(document.getElementById("d2").value);
-    const h  = Number(document.getElementById("h").value);
-    Vb_m3 = frustumVolumeM3(d1,d2,h);
-  } else {
-    const d  = Number(document.getElementById("dc").value);
-    const h  = Number(document.getElementById("hc").value);
-    Vb_m3 = cylinderVolumeM3(d,h);
-  }
-
+  const Vb_m3 = getBucketVolume();
   const Vb_L = Vb_m3 * 1000;
+  $("bucketVol").textContent = `${fmt(Vb_L,1)} L (${fmt(Vb_m3,4)} m³)`;
 
-  const bagKg = Number(document.getElementById("bagKg").value || 50);
-  const step = Number(document.getElementById("rounding").value || 0.25);
+  const bagKg = parseNumberAny($("bagKg").value) || 50;
+  const step = parseNumberAny($("rounding").value) || 0.25;
 
-  const k = bagKg / mix.cement_kg_m3;
+  const active = localStorage.getItem(TAB_KEY) || "bag";
 
-  const sand_m3 = mix.sand_m3_m3 * k;
-  const gravel_m3 = mix.gravel_m3_m3 * k;
-  const water_L = mix.water_L_m3 * k;
+  let cement_kg = 0, sand_m3 = 0, gravel_m3 = 0, water_L = 0;
+  let header = "";
+
+  if (active === "bag") {
+    const k = bagKg / mix.cement_kg_m3;
+    cement_kg = bagKg;
+    sand_m3 = mix.sand_m3_m3 * k;
+    gravel_m3 = mix.gravel_m3_m3 * k;
+    water_L = mix.water_L_m3 * k;
+    header = `Por 1 bulto de cemento (${fmt(bagKg,0)} kg)`;
+  } else if (active === "m3") {
+    cement_kg = mix.cement_kg_m3;
+    sand_m3 = mix.sand_m3_m3;
+    gravel_m3 = mix.gravel_m3_m3;
+    water_L = mix.water_L_m3;
+    header = "Por 1 m³ de concreto";
+  } else {
+    let V = parseNumberAny($("volM3").value);
+    if (!isFinite(V) || V <= 0) V = evalVolumeExpr($("volExpr").value);
+    if (!isFinite(V) || V <= 0) V = 0;
+
+    cement_kg = mix.cement_kg_m3 * V;
+    sand_m3 = mix.sand_m3_m3 * V;
+    gravel_m3 = mix.gravel_m3_m3 * V;
+    water_L = mix.water_L_m3 * V;
+    header = `Por volumen: ${fmt(V,3)} m³`;
+  }
 
   const sand_b = sand_m3 / Vb_m3;
   const gravel_b = gravel_m3 / Vb_m3;
@@ -302,29 +711,32 @@ function calc(){
   const gravel_b_r = ceilToStep(gravel_b, step);
   const water_b_r = ceilToStep(water_b, step);
 
-  document.getElementById("outSand").textContent = `${fmt(sand_b_r,2)} baldes`;
-  document.getElementById("outSand2").textContent = `Exacto: ${fmt(sand_b,2)} • Arena: ${fmt(sand_m3*1000,1)} L`;
+  $("outSand").textContent = `${fmt(sand_b_r,2)} baldes`;
+  $("outSand2").textContent = `Exacto: ${fmt(sand_b,2)} • ${fmt(sand_m3*1000,1)} L`;
 
-  document.getElementById("outGravel").textContent = `${fmt(gravel_b_r,2)} baldes`;
-  document.getElementById("outGravel2").textContent = `Exacto: ${fmt(gravel_b,2)} • Grava: ${fmt(gravel_m3*1000,1)} L`;
+  $("outGravel").textContent = `${fmt(gravel_b_r,2)} baldes`;
+  $("outGravel2").textContent = `Exacto: ${fmt(gravel_b,2)} • ${fmt(gravel_m3*1000,1)} L`;
 
-  document.getElementById("outWater").textContent = `${fmt(water_L,1)} L`;
-  document.getElementById("outWater2").textContent = `≈ ${fmt(water_b_r,2)} baldes (exacto ${fmt(water_b,2)})`;
+  $("outWater").textContent = `${fmt(water_L,1)} L`;
+  $("outWater2").textContent = `≈ ${fmt(water_b_r,2)} baldes (exacto ${fmt(water_b,2)})`;
+
+  const bultosEq = cement_kg / bagKg;
+  const cementLine = (active === "bag")
+    ? `Cemento: ${fmt(bagKg,0)} kg (1 bulto)`
+    : `Cemento: ${fmt(cement_kg,1)} kg (≈ ${fmt(bultosEq,2)} bultos de ${fmt(bagKg,0)} kg)`;
 
   const meta = [
-    `${mix.psi} psi (${mix.mpa} MPa) • Cemento: ${mix.cement_kg_m3} kg/m³`,
+    header,
+    `${mix.psi} psi (${mix.mpa} MPa)`,
+    cementLine,
     `${mix.is_estimated ? "Estimado: " : ""}${mix.basis || ""}`
   ].filter(Boolean).join(" — ");
-  document.getElementById("meta").textContent = meta;
-
-  document.getElementById("bucketVol").textContent = `${fmt(Vb_L,1)} L (${fmt(Vb_m3,4)} m³)`;
-
-  persist();
+  $("meta").textContent = meta;
 }
 
-init().catch(err=>{
+init().catch(err => {
   console.error(err);
-  document.getElementById("meta").textContent = "Error cargando datos. Ver consola.";
+  $("meta").textContent = "Error cargando datos. Ver consola.";
 });
 </script>
 </body>
